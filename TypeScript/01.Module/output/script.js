@@ -141,18 +141,54 @@ console.log("hello, world that is from TypeScript to JavaScript");
 //   }
 // };
 // console.log(calculator(10, 20, "add"));
-class Player {
-    constructor(n, a, c) {
-        this.name = n;
-        this.age = a;
-        this.country = c;
-    }
-    play() {
-        console.log(`${this.name} from ${this.country}`);
-    }
-}
-const jack = new Player("jack", 21, "Bangladesh");
-const sakib = new Player("sakib", 25, "Bangladesh");
-const players = [];
-console.log(jack);
-console.log(sakib);
+// class Player {
+//   name: string;
+//   age: number;
+//   country: string;
+//   constructor(n: string, a: number, c: string) {
+//     this.name = n;
+//     this.age = a;
+//     this.country = c;
+//   }
+//   play() {
+//     console.log(`${this.name} from ${this.country}`);
+//   }
+// }
+// import { Players } from "./classes/Players.js";
+// import { IsPlayers } from "./interface/isPlayer.js";
+// const jack = new Players("jack", 21, "Bangladesh");
+// let sakib: IsPlayers;
+// sakib = new Players("Sakib", 32, "Englend");
+// const players: IsPlayers[] = [];
+// players.push(jack);
+// players.push(sakib);
+// // players[0].play();
+// players[1].play();
+// let sakibAge = players[1].getAge();
+// console.log(sakibAge);
+// interface RectangleOptions {
+//   width: number;
+//   length: number;
+// }
+// function drawRectangle(options: RectangleOptions): number {
+//   let width = options.width;
+//   let length = options.length;
+//   return Math.min(options.width, options.length);
+// }
+// const resultOfRectalgle = drawRectangle({
+//   width: 30,
+//   length: 20,
+// });
+// console.log(resultOfRectalgle);
+// Generics
+// const addId = <T>(obj: T) => {
+//   let id = Math.floor(Math.random() * 100);
+//   return { ...obj, id };
+// };
+// let user = addId({
+//   name: "jack",
+//   age: 32,
+// });
+// console.log(user);
+// let a = [3, "hello", { p: 3 }];
+// let b: [number, string, object] = [4, "world", { t: 2 }];
