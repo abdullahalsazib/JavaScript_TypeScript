@@ -119,3 +119,24 @@ console.log(money);
 
 money = money.toString();
 console.log(typeof money);
+
+console.log("====================================");
+const welcome = function () {
+  let sum = 0;
+  for (let i in arguments) {
+    sum += arguments[i];
+  }
+  return sum;
+};
+
+console.log(welcome(10, 10, 10, 10, 10));
+
+function sum(name, ...args) {
+  let sum = 0;
+  for (let i in args) {
+    sum += args[i];
+  }
+  return name + " " + sum;
+}
+
+console.log(sum("jack", 1, 2, 3, 4, 5, 6, 7));
