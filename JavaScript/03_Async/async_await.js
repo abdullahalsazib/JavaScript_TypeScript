@@ -1,5 +1,5 @@
 const paymentSuccess = true;
-const mark = 90;
+const mark = 60;
 
 // Enroll
 let enroll = () => {
@@ -17,7 +17,6 @@ let enroll = () => {
 
   return promise;
 };
-
 // Progress
 let progress = () => {
   console.log("Course on Progress...... 🧑‍🦯");
@@ -41,35 +40,22 @@ let getCertificate = () => {
   });
 };
 
-enroll()
-  .then(progress)
-  .then(getCertificate)
-  .then((value) => console.log(value))
-  .catch((err) => {
+async function Course() {
+  try {
+    await enroll();
+    await progress();
+    const message = await getCertificate();
+    console.log(message);
+  } catch (err) {
     console.log(err);
-  });
+  }
+}
+Course();
 
-/*
-const status = true;
-console.log("Tack 1");
-
-const promise = new Promise(function (resolv, reject) {
-  setTimeout(() => {
-    if (status) {
-      resolv("Task 2");
-    } else {
-      reject("Faild!");
-    }
-  }, 2000);
-});
-
-promise
-  .then((value) => {
-    console.log(value);
-  })
-  .catch(function (err) {
-    console.log(err);
-  });
-
-console.log("Tack 3");
-*/
+// enroll()
+//   .then(progress)
+//   .then(getCertificate)
+//   .then((value) => console.log(value))
+//   .catch((err) => {
+//     console.log(err);
+//   });
