@@ -139,4 +139,9 @@ function sum(name, ...args) {
   return name + " " + sum;
 }
 
-console.log(sum("jack", 1, 2, 3, 4, 5, 6, 7));
+// console.log(sum("jack", 1, 2, 3, 4, 5, 6, 7));
+
+let myArr = [10, 10, 10, 10, 10];
+let forSub = sum("jack", ...myArr);
+
+console.log(forSub);
