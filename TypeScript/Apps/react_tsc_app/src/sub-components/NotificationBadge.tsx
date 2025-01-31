@@ -14,7 +14,7 @@ const NotificationBadge: React.FC<NotificationBadgeProps> = ({
 
   return (
     <div
-      className={`absolute ${position} inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform -translate-y-1/2 translate-x-1/2 bg-red-500 rounded-full`}
+      className={`absolute ${position} inline-flex items-center justify-center px-1.5 py-1 text-xs font-bold leading-none text-white transform -translate-y-1/2 translate-x-1/2 bg-red-500 rounded-full`}
     >
       {count > 99 ? '99+' : count}
       <span className="sr-only">unread notifications</span>

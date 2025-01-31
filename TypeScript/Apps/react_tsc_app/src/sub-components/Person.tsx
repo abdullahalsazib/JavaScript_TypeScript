@@ -1,11 +1,6 @@
+import {PersonProps} from './Person.type';
 
-type personProps = {
-    name: {
-        first: string,
-        last: string
-    }
-}
-function Person(props: personProps) {
+function Person(props: PersonProps) {
   return (
       <div>{ props.name.first} { props.name.last}</div>
   )
