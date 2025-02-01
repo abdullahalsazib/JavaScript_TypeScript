@@ -11,7 +11,7 @@ function Loggedin() {
    }
 
   return (
-      <div className="flex items-center justify-center flex-col py-10">
+      <div className="flex items-center justify-center flex-col py-10 gap-2">
       
       <SimpleBtn handleEvent={handleLogIn} title={ "Log In"} />
       <SimpleBtn handleEvent={handleLogOut} title={ "Log Out"} />

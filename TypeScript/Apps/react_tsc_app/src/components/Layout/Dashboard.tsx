@@ -5,15 +5,21 @@ import { HiOutlineMenuAlt2, HiOutlineMenuAlt3 } from "react-icons/hi"
 import { IoSearch } from "react-icons/io5"
 import { MdOutlineSettings } from "react-icons/md"
 import NotificationBadge from "../../sub-components/NotificationBadge"
-import { BiUser } from "react-icons/bi"
+import { BiAbacus, BiUser } from "react-icons/bi"
 import { CiSettings } from "react-icons/ci"
+import { UserCircleIcon } from "@heroicons/react/16/solid"
 // https://ecme-react.themenate.net/dashboards/ecommerce
 
 function Dashboard() {
   const [sideOpen, setSideOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [countNo, setCountNo] = useState<number>(100)
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const handleCounter = () => {
+    confirm("OK Notification is clear")
+    setCountNo(0)
+  }
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -32,6 +38,12 @@ function Dashboard() {
         <aside className={`bg-[#FFFFFF] ${sideOpen? "w-96": "w-20"} duration-200 gap-5 border-r-2 border-slate-200 h-screen flex flex-col items-center py-[10px]`}>
           <h1 className="capitalize text-2xl font-bold font-sans text-black"> {!sideOpen ? <img className="w-10" src="https://ecme-react.themenate.net/img/logo/logo-light-streamline.png"/> : <img className="w-[70%]" src="https://ecme-react.themenate.net/img/logo/logo-light-full.png"/> } </h1>
           
+
+          <div className="relative">
+            {/* <h1>hello</h1> */}
+            <IconBtnStyle icons={ <BiAbacus/> }/>
+            <NotificationBadge position="top-0" count={9999}/>
+          </div>
         </aside>
 
         <div className=" w-full h-screen bg-[#F5F5F5]">
@@ -48,7 +60,12 @@ function Dashboard() {
               <IconBtnStyle icons={ <GiPirateFlag size={25} />} />
               <div className="relative" >
                 <IconBtnStyle  icons={<GoBell size={25} />} />
+
+
                 <NotificationBadge position="top-1" count={100}/>
+
+
+
               </div>
               <IconBtnStyle icons={<MdOutlineSettings size={25} />} />
               
@@ -101,8 +118,17 @@ function Dashboard() {
               
             </div>
           </div>
+
+          
+          <div className="bg-slate-200 w-full h-screen flex items-center justify-center">
+            <div className=" relative   ">
+              <IconBtnStyle onClick={()=> handleCounter()} icons={ <UserCircleIcon/>}/>
+              <NotificationBadge position="-bottom-5 bg-yellow-600" count={countNo}/>
+            </div>
+          </div>
         </div>
-      </div>
+
+        </div>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import Loggedin from "./sub-components/State/Loggedin"
+import Dashboard from "./components/Layout/Dashboard"
 
 
 function App() {
@@ -10,7 +10,10 @@ function App() {
          <MyInput handleEvent={handleChange}/>
          <MyButton styles={{border: '1px solid red'}} handleClick={() => handleClick()} />
      </div> */}
-     <Loggedin/>
+     {/* <Loggedin/> */}
+     <Dashboard/>
+    
+     
     </>
   )
 }
