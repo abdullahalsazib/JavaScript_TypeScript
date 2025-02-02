@@ -1,5 +1,4 @@
-import Dashboard from "./components/Layout/Dashboard"
-
+import Counter from "./sub-components/State/Counter"
 
 function App() {
  return (
@@ -11,7 +10,7 @@ function App() {
          <MyButton styles={{border: '1px solid red'}} handleClick={() => handleClick()} />
      </div> */}
      {/* <Loggedin/> */}
-     <Dashboard/>
+     <Counter/>
     
      
     </>
