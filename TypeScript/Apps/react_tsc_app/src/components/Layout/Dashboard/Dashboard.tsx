@@ -4,15 +4,18 @@ import { GoBell, GoPulse, GoSignOut } from "react-icons/go"
 import { HiOutlineMenuAlt2, HiOutlineMenuAlt3 } from "react-icons/hi"
 import { IoSearch } from "react-icons/io5"
 import { MdOutlineSettings } from "react-icons/md"
-import NotificationBadge from "../../sub-components/NotificationBadge"
-import { BiAbacus, BiUser } from "react-icons/bi"
+import NotificationBadge from "../../../sub-components/Test/NotificationBadge"
+import {  BiDownArrow, BiRightArrow, BiUser } from "react-icons/bi"
 import { CiSettings } from "react-icons/ci"
 import { UserCircleIcon } from "@heroicons/react/16/solid"
+import { BsHandbag, BsMarkerTip } from "react-icons/bs"
+import { FaProjectDiagram } from "react-icons/fa"
 // https://ecme-react.themenate.net/dashboards/ecommerce
 
 function Dashboard() {
-  const [sideOpen, setSideOpen] = useState(false);
+  const [sideOpen, setSideOpen] = useState(true);
   const [userOpen, setUserOpen] = useState(false)
+  const [dropDownOpen, setDropDownOpen] = useState(false)
   const [countNo, setCountNo] = useState<number>(100)
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -32,18 +35,109 @@ function Dashboard() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+  const nevItems = [
+        {
+        title: "Dashboard",
+        items: [
+            {text: "Ecommerese", icon: <BsHandbag/>, path: "#", dropdown: false,},
+            {text: "Project", icon: <FaProjectDiagram/>, path: "#", dropdown: false,},
+            {
+              text: "Marketing", icon: <BsMarkerTip />,
+              dropdown: true,
+              dropdownItems: [
+                {text: "jack", path: "#"},
+                {text: "Chart", path: "#"},
+                {text: "Card", path: "#"},
+              ]},
+              {text: "Project", icon: <FaProjectDiagram/>, path: "#", dropdown: false,},
+            ],
+          
+          
+        },
+        {
+        title: "Dashboard",
+        items: [
+            {text: "Ecommerese", icon: <BsHandbag/>, path: "#", dropdown: false,},
+            {text: "Project", icon: <FaProjectDiagram/>, path: "#", dropdown: false,},
+            {
+              text: "Marketing", icon: <BsMarkerTip />,
+              dropdown: true,
+              dropdownItems: [
+                {text: "jack", path: "#"},
+                {text: "Chart", path: "#"},
+                {text: "Card", path: "#"},
+              ]},
+              {text: "Project", icon: <FaProjectDiagram/>, path: "#", dropdown: false,},
+            ],
+          
+          
+        },
+        
+    ]
   return (
     <>
       <div className=" w-full h-screen flex fixed">
-        <aside className={`bg-[#FFFFFF] ${sideOpen? "w-96": "w-20"} duration-200 gap-5 border-r-2 border-slate-200 h-screen flex flex-col items-center py-[10px]`}>
-          <h1 className="capitalize text-2xl font-bold font-sans text-black"> {!sideOpen ? <img className="w-10" src="https://ecme-react.themenate.net/img/logo/logo-light-streamline.png"/> : <img className="w-[70%]" src="https://ecme-react.themenate.net/img/logo/logo-light-full.png"/> } </h1>
+        <aside
+          className={`bg-[#FFFFFF] ${sideOpen ? "w-96" : "w-20"} duration-200 gap-0 border-r-2 border-slate-200 h-screen flex flex-col items-start px-3 `}>
+          <h1 className={`capitalize text-2xl font-bold font-sans text-black py-4 w-full flex  ${!sideOpen ? "items-center justify-center": "items-start justify-start" }`} > {!sideOpen ?
+            <img className="w-10" src="https://ecme-react.themenate.net/img/logo/logo-light-streamline.png" /> 
+            : <img className="w-[50%]" src="https://ecme-react.themenate.net/img/logo/logo-light-full.png" />}
+          </h1>
           
 
-          <div className="relative">
-            {/* <h1>hello</h1> */}
-            <IconBtnStyle icons={ <BiAbacus/> }/>
-            <NotificationBadge position="top-0" count={9999}/>
+          {/* Dashboard  */}
+          <div className="w-full h-full ">
+              {
+                  nevItems.map((item, index) => (
+                    <div key={index}>
+                      {
+                        sideOpen ?
+                        <h3 className="text-[19px] font-semibold text-[#737373] font-mono px-3">{item.title}</h3>
+                        : null
+                      }
+                        <ul className="flex items-center flex-col gap-0  w-full">
+                              {
+                                  item.items.map((liItem, index) => (
+                                    <li className="w-full font-mono" key={index}>
+                                      <a onClick={()=> setDropDownOpen(!dropDownOpen)} className={`text-[19px] cursor-pointer font-semibold flex  gap-3 py-3 px-4 rounded-lg hover:bg-slate-100 duration-300 w-full ${!sideOpen ? "justify-center " : "justify-between "} text-[#2a85ff]`} href={liItem.path}>
+                                        <div className="flex items-center justify-start gap-3">
+                                          {liItem.icon} <span className={`text-base font-semibold text-[14px] ${!sideOpen ? 'hidden' : "block"} `}> {liItem.text} </span>
+                                        </div>
+                                        {
+                                           liItem.dropdown ?
+                                            (!dropDownOpen?<BiRightArrow />: <BiDownArrow/>)
+                                            : null
+                                        }
+                                        
+                                      </a>
+                                      
+                                      {
+                                        sideOpen ? 
+                                          liItem.dropdown && dropDownOpen ? 
+                                          <ul className=" duration-300 w-auto  flex flex-col items-center gap-1 mx-4" style={{ padding: '0' }}>
+                                            {
+                                              liItem.dropdownItems?.map((item, index) => (
+                                                <a href={item.path} className="w-full h-full bg- py-3 rounded-lg px-4 hover:bg-slate-100 duration-200 cursor-pointer" key={index} >
+                                                  <a className={`list-disc text-[15px] cursor-pointer font-semibold rounded-lg hover:bg-slate-100 duration-200 text-[#2a85ff]`} > 🎱 { item.text}</a>
+                                            </a>
+                                              ))
+                                            }
+                                        </ul>
+                                          : 
+                                            null
+                                          :null
+                                      }
+                                    </li>
+                                   
+                                  ))
+                            }
+                        </ul>
+                    </div>
+                ))  
+              }
+            
           </div>
+
         </aside>
 
         <div className=" w-full h-screen bg-[#F5F5F5]">

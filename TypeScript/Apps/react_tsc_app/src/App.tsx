@@ -1,20 +1,11 @@
-import Counter from "./sub-components/State/Counter"
+import A from "./sub-components/State/Use_Context/A";
 
-function App() {
- return (
-    
+export default function App() {
+  return (
     <>
-      <hr />
-      {/* <div className="flex flex-col items-center justify-center py-10">
-         <MyInput handleEvent={handleChange}/>
-         <MyButton styles={{border: '1px solid red'}} handleClick={() => handleClick()} />
-     </div> */}
-     {/* <Loggedin/> */}
-     <Counter/>
-    
-     
+      <div className="text-center text-4xl py-10">
+      <A/>
+      </div>
     </>
   )
 }
-
-export default App

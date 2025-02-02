@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+
+.my_btn{
+     @apply cursor-pointer py-3 px-10 rounded-md bg-white text-[19px] shadow-2xl text-black font-semibold   duration-200 ease-in-out active:scale-105 drop-shadow-lg;
+     box-shadow: inset 4px 4px 10px 1px rgba(176, 176, 176, 0.406);
+}
+.inputFild {
+     @apply py-3 px-5 bg-white text-black placeholder:text-slate-400 border-none outline-none rounded-md;
+     box-shadow: inset 4px 4px 10px 1px rgba(176, 176, 176, 0.406);
+}
