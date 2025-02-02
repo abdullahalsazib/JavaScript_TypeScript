@@ -2,7 +2,7 @@
 
 
 .my_btn{
-     @apply cursor-pointer py-3 px-10 rounded-md bg-white text-[19px] shadow-2xl text-black font-semibold   duration-200 ease-in-out active:scale-105 drop-shadow-lg;
+     @apply cursor-pointer py-3 px-10 capitalize rounded-md bg-white text-[19px] shadow-2xl text-black font-semibold   duration-200 ease-in-out active:scale-105 drop-shadow-lg;
      box-shadow: inset 4px 4px 10px 1px rgba(176, 176, 176, 0.406);
 }
 .inputFild {
