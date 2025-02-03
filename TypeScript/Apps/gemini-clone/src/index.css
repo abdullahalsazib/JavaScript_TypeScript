@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+#root{
+  min-height: 100vh;
+  min-width: 100vh;
+
+  display: flex;
+}
+.a_link{
+  @apply hover:bg-[#1c1d1f] text-white opacity-65 duration-300 ease-in-out text-[20px] flex items-center justify-start w-full rounded-full
+}
+.scroll_ber_css{
+  @apply bg-transparent;
+  scroll-padding: 10px;
+  scrollbar-color: #393939 #1c1d1f;
+  scroll-behavior: smooth;
+}
