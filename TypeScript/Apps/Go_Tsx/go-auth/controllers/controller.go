@@ -1,16 +1,23 @@
 package controllers
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/golang-jwt/jwt/v5"
 	"go-auth/database"
 	"go-auth/modles"
-	"golang.org/x/crypto/bcrypt"
 	"strconv"
 	"time"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v5"
+	"golang.org/x/crypto/bcrypt"
 )
 
 const secretKey = "secret"
+
+func TestApi(c *fiber.Ctx) error {
+	return c.JSON(fiber.Map{
+		"message": "Hello, World! Api is running",
+	})
+}
 
 func Register(c *fiber.Ctx) error {
 	var data map[string]string

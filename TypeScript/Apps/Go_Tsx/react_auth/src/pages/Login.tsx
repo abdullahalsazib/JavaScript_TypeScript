@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
-import { Navigate } from "react-router-dom";
 import Button from "../components/Button";
+import { Navigate } from "react-router-dom";
 
 export const Login = (props: { setName: (name: string) => void }) => {
   const [email, setEmail] = useState<string | null>("");
@@ -20,11 +20,11 @@ export const Login = (props: { setName: (name: string) => void }) => {
     });
 
     const content = await response.json();
-    props.setName(content.name);
     setRedirect(true);
+    props.setName(content.name);
   };
   if (rederect) {
-    return <Navigate to="/" />;
+    return <Navigate to={"/"} />;
   }
 
   return (

@@ -16,7 +16,7 @@ const App: React.FC = () => {
       const content = await response.json();
       setName(content.name);
     })();
-  });
+  }, []);
   return (
     <>
       <BrowserRouter>
