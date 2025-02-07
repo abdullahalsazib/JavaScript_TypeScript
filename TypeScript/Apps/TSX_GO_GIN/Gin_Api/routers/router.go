@@ -15,8 +15,10 @@ func Home(c *gin.Context) {
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+	r.GET("/", Home)
 	auth := r.Group("/auth")
 	{
+
 		auth.POST("/register", controllers.Register)
 		auth.POST("/login", controllers.Login)
 		auth.POST("/logout", controllers.Logout)

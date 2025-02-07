@@ -1,8 +1,11 @@
 package controllers
 
 import (
+	"fmt"
 	"go-auth/database"
 	"go-auth/modles"
+	"os"
+	"path/filepath"
 	"strconv"
 	"time"
 
@@ -136,5 +139,123 @@ func Logout(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{
 		"message": "Success",
+	})
+}
+
+// Uploads directory
+const UploadDir = "./uploads/"
+
+// Ensure uploads directory exists
+func init() {
+	if _, err := os.Stat(UploadDir); os.IsNotExist(err) {
+		os.Mkdir(UploadDir, os.ModePerm)
+	}
+}
+
+// Update User Profile (with Image Upload)
+func UpdateProfile(c *fiber.Ctx) error {
+	// Get JWT token from cookie
+	cookie := c.Cookies("jwt")
+	if cookie == "" {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Unauthorized"})
+	}
+
+	// Parse JWT token
+	token, err := jwt.ParseWithClaims(cookie, &jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(secretKey), nil
+	})
+	if err != nil || !token.Valid {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid token"})
+	}
+
+	// Extract claims
+	claims, ok := token.Claims.(*jwt.MapClaims)
+	if !ok || claims == nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid token claims"})
+	}
+
+	// Get user ID from token
+	userID, exists := (*claims)["issuer"].(string)
+	if !exists {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid token claims"})
+	}
+
+	// Find user by ID
+	var user modles.User
+	if err := database.DB.Where("id = ?", userID).First(&user).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "User not found"})
+	}
+
+	// Parse form-data
+	form, err := c.MultipartForm()
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid form data"})
+	}
+
+	// Get file
+	files := form.File["profile_picture"]
+	if len(files) == 0 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "No image uploaded"})
+	}
+	file := files[0]
+
+	// Generate a unique filename
+	filename := fmt.Sprintf("%d-%s", c.Context().Time().UnixNano(), filepath.Base(file.Filename))
+	filePath := filepath.Join(UploadDir, filename)
+
+	// Save the file
+	if err := c.SaveFile(file, filePath); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to save file"})
+	}
+
+	// Update user profile picture
+	user.ProfilePicture = filename
+	database.DB.Save(&user)
+
+	return c.JSON(fiber.Map{
+		"message":         "Profile updated successfully",
+		"profile_pic_url": fmt.Sprintf("/uploads/%s", filename), // URL for frontend
+	})
+}
+
+func GetUserProfile(c *fiber.Ctx) error {
+	// Get JWT token from cookie
+	cookie := c.Cookies("jwt")
+	if cookie == "" {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Unauthorized"})
+	}
+
+	// Parse JWT token
+	token, err := jwt.ParseWithClaims(cookie, &jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(secretKey), nil
+	})
+	if err != nil || !token.Valid {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid token"})
+	}
+
+	// Extract claims
+	claims, ok := token.Claims.(*jwt.MapClaims)
+	if !ok || claims == nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid token claims"})
+	}
+
+	// Get user ID from token
+	userID, exists := (*claims)["issuer"].(string)
+	if !exists {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid token claims"})
+	}
+
+	// Find user by ID
+	var user modles.User
+	if err := database.DB.Where("id = ?", userID).First(&user).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "User not found"})
+	}
+
+	// Return user profile
+	return c.JSON(fiber.Map{
+		"id":              user.Id,
+		"name":            user.Name,
+		"email":           user.Email,
+		"profile_pic_url": fmt.Sprintf("/uploads/%s", user.ProfilePicture),
 	})
 }

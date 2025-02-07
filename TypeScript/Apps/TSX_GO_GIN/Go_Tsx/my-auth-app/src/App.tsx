@@ -7,10 +7,11 @@ import Logout from "./Pages/Logout";
 import Navber from "./components/Navber";
 import Home from "./Pages/Home";
 import Dashboard from "./Pages/Dashboard";
+import ProfileUpdate from "./Pages/ProfileUpdate";
 
 function App() {
   return (
-    <div>
+    <>
       <AuthProvider>
         <BrowserRouter>
           <Navber />
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/update" element={<ProfileUpdate />} />
             <Route
               path="/dashboard"
               element={
@@ -30,7 +32,8 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AuthProvider>
-    </div>
+      ;
+    </>
   );
 }
 
