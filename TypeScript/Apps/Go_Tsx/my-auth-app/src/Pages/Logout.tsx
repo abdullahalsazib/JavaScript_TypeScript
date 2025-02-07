@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../api/Auth";
+import { MyButton } from "./Login";
 
 function Logout() {
   const { setUser } = useContext(AuthContext)!;
@@ -15,7 +16,11 @@ function Logout() {
       console.log("Logout Faild -> ", error);
     }
   };
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <>
+      <MyButton title="Log Out" type="submit" onClick={handleLogout} />
+    </>
+  );
 }
 
 export default Logout;
