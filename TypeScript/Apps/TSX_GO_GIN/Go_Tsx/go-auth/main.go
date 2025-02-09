@@ -15,12 +15,13 @@ func init() {
 func main() {
 
 	app := fiber.New()
-
+	// router
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     "http://localhost:5173",
 		AllowCredentials: true,
 	}))
 
+	// run the server
 	routes.Setup(app)
 	log.Fatal(app.Listen(":8000"))
 }
