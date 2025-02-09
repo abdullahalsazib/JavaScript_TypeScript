@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { register } from "../api/Auth";
 import { useNavigate } from "react-router-dom";
@@ -17,8 +18,8 @@ const Register = () => {
       } else {
         navigate("/login");
       }
-    } catch (error) {
-      console.error("Registeration Faild -> ", error);
+    } catch (error: any) {
+      alert(error.response.data.message);
     }
   };
   return (

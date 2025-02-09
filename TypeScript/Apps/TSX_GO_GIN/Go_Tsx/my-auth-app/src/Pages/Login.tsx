@@ -22,10 +22,11 @@ const Login = () => {
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        alert(error.message);
+        alert(error.response.data.message);
+        // console.log(error);
       }
     } else {
-      alert("Plz login");
+      alert("Fill Up the input fild!");
     }
   };
 

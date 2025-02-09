@@ -3,24 +3,31 @@ import { Link } from "react-router-dom";
 import Logout from "../Pages/Logout";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { BiDownArrow, BiRightArrow } from "react-icons/bi";
+import { BiDownArrow, BiRightArrow, BiUser } from "react-icons/bi";
 
 function Navber() {
   const [down, setDown] = useState(false);
   const { user } = useContext(AuthContext)!;
-  // console.log(user);
+  console.log(user);
   let menu;
   //  if login then show the button name logout and else show in navber the login and reaginster button
   if (user) {
     menu = (
       <div className="flex items-center justify-center gap-4">
         <div className="p-2 flex items-center justify-center flex-row gap-2 ">
-          <img
-            onClick={() => setDown(!down)}
-            className=" w-10 h-10 rounded-full cursor-pointer ring-4 ring-blue-500"
-            src={"http://localhost:8000" + user.profile_pic_url}
-            alt="error"
-          />
+          {user.profile_pic_url === "/uploads/" ? (
+            <BiUser
+              className=" w-10 h-10 p-1 text-[15px] rounded-full cursor-pointer ring-4 ring-blue-500"
+              onClick={() => setDown(!down)}
+            />
+          ) : (
+            <img
+              onClick={() => setDown(!down)}
+              className=" w-10 h-10 rounded-full cursor-pointer ring-4 ring-blue-500"
+              src={"http://localhost:8000" + user.profile_pic_url}
+              alt="error"
+            />
+          )}
           {down ? (
             <BiRightArrow onClick={() => setDown(!down)} />
           ) : (
@@ -36,7 +43,7 @@ function Navber() {
                 className=" py-2 px-4 font-semibold text-sm bg-green-400 rounded-md cursor-pointer"
                 to="/update"
               >
-                Edit Profile
+                Profile
               </Link>
               <Link
                 className="py-2 px-5 bg-green-300 rounded-md"
