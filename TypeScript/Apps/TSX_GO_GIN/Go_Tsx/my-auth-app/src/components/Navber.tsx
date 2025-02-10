@@ -8,7 +8,14 @@ import { BiDownArrow, BiRightArrow, BiUser } from "react-icons/bi";
 function Navber() {
   const [down, setDown] = useState(false);
   const { user } = useContext(AuthContext)!;
-  console.log(user);
+  const NavLinks = [
+    { hrefTo: "/", title: "Home" },
+    { hrefTo: "/", title: "Shop" },
+    { hrefTo: "/", title: "pages" },
+    { hrefTo: "/", title: "blog" },
+    { hrefTo: "/", title: "contact us" },
+  ];
+  // console.log(u  ser);
   let menu;
   //  if login then show the button name logout and else show in navber the login and reaginster button
   if (user) {
@@ -27,11 +34,6 @@ function Navber() {
               src={"http://localhost:8000" + user.profile_pic_url}
               alt="error"
             />
-          )}
-          {down ? (
-            <BiRightArrow onClick={() => setDown(!down)} />
-          ) : (
-            <BiDownArrow onClick={() => setDown(!down)} />
           )}
         </div>
         {down ? (
@@ -72,9 +74,29 @@ function Navber() {
     );
   }
   return (
-    <div>
-      <div className="w-full py-5 px-10 bg-slate-900 text-white flex items-center justify-between">
-        <Link to="/">Home</Link>
+    <div className="fixed w-full">
+      <div className="w-full py-5 px-[10%] bg-white text-black flex items-center justify-between ">
+        <Link to="/">
+          <img
+            className="w-35"
+            src="https://wpocean.com/html/tf/pengu/assets/images/logo.svg"
+            alt="error"
+          />
+        </Link>
+        <div>
+          <ul className=" flex items-center justify-center  gap-10 ">
+            {NavLinks.map((items, index) => (
+              <li key={index}>
+                <Link
+                  to={items.hrefTo}
+                  className="uppercase cursor-pointer text-gray-600 font-normal hover:font-semibold hover:text-gray-950 duration-200 text-[18px] tracking-wider"
+                >
+                  {items.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
         <ul className="flex items-center justify-between gap-3">{menu}</ul>
       </div>
     </div>

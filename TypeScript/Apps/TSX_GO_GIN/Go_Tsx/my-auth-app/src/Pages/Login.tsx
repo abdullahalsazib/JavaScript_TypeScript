@@ -1,8 +1,13 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUser, login } from "../api/Auth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+  RiFacebookBoxFill,
+  RiLinkedinBoxFill,
+  RiTwitterXFill,
+} from "react-icons/ri";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,23 +36,102 @@ const Login = () => {
   };
 
   return (
-    <div className=" w-full h-screen flex items-center justify-center flex-col">
-      <div className="flex items-center justify-center gap-5 bg-slate-50 flex-col p-5 rounded-md shadow-2xl">
-        <h2 className="text-3xl text-center font-bold uppercase font-mono">
-          Login form
-        </h2>
-        <InputFild
-          placeholder="Enter your email.."
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <PasswordFild
-          placeholder="Enter your password.."
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <MyButton onClick={() => handleLogin()} title="Log In" type="submit" />
+    <div className=" w-full h-screen flex items-center justify-center">
+      <div className="w-[60%] h-[80vh]  flex items-center justify-between rounded-lg shadow-xl">
+        <div className="flex items-center justify-between flex-col w-[50%] h-full bg-[#F67878] p-10 rounded-s-2xl">
+          <div className="flex items-center justify-between w-full ">
+            <img
+              src="https://wpocean.com/html/tf/pengu/assets/images/logo-2.svg"
+              alt=""
+            />
+            <Link
+              to="/register"
+              className=" py-3 px-4 text-base bg-white rounded-md border-2 border-white hover:border-white hover:text-white hover:bg-red-400 duration-200"
+            >
+              Create Account
+            </Link>
+          </div>
+          <img
+            src="https://wpocean.com/html/tf/pengu/assets/images/login.png"
+            alt="error"
+          />
+          <div className="flex items-center justify-between w-full">
+            <Link
+              to="/"
+              className=" py-3 px-4 text-base bg-white rounded-md border-2 border-white hover:border-white hover:text-white hover:bg-red-400 duration-200"
+            >
+              Back to Home
+            </Link>
+          </div>
+        </div>
+        {/* right */}
+        <div className="flex items-start py-12 px-28 justify-between flex-col w-[50%] h-full bg-white rounded-r-2xl">
+          <div className="flex gap-2 flex-col font-light">
+            <h1 className=" text-4xl capitalize font-bold">Login</h1>
+            <p className="text-base text-slate-400">
+              Sign into your pages account
+            </p>
+          </div>
+          <div className="w-full flex gap-5 flex-col">
+            <LabelInputFild
+              htmlFor="emailFor"
+              labelText="Email"
+              placeholder="demo@gmail.com"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <PasswordFild
+              htmlFor="passwordFor"
+              labelText="Password"
+              placeholder="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {/* checkbox and forgor btn */}
+            <div className="flex items-center justify-between flex-row">
+              <span className="flex items-center justify-center gap-2">
+                <input
+                  type="checkbox"
+                  id="check"
+                  className=" cursor-pointer w-4 h-4"
+                />
+                <label className=" cursor-pointer" htmlFor="check">
+                  Remember Me
+                </label>
+              </span>
+              <a href="#" className="text-[#F56061] text-[16px]">
+                Forgot Password?
+              </a>
+            </div>
+          </div>
+          <SubmitButton
+            title="Login"
+            type="submit"
+            onClick={() => handleLogin()}
+          />
+          <div className=" w-full flex items-center gap-7 flex-col">
+            {/* or */}
+            <div className="flex items-center justify-center flex-col w-full">
+              <hr className=" border-gray-300 border-t-[0.2px] rounded-full w-full" />
+              <h1 className=" absolute bg-white px-5 text-[18px] uppercase ">
+                or
+              </h1>
+            </div>
+            <div className=" flex items-center justify-between text-4xl gap-4">
+              <RiFacebookBoxFill />
+              <RiTwitterXFill />
+              <RiLinkedinBoxFill />
+            </div>
+            <h3 className=" text-[15px]">
+              Don't have an account?{" "}
+              <Link to="/register" className="text-[14px] text-[#F56061]">
+                Create free account
+              </Link>
+            </h3>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -55,45 +139,58 @@ const Login = () => {
 
 export default Login;
 
-interface InputFildProps {
+interface LabelInputFildProps {
   type?: string;
+  htmlFor: string;
+  labelText: string;
   placeholder: string;
   value?: string;
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
 }
-export const InputFild: React.FC<InputFildProps> = (props) => {
+export const LabelInputFild: React.FC<LabelInputFildProps> = (props) => {
   return (
     <>
-      <input
-        className=" border-2 border-gray-300 hover:border-gray-400 duration-200 rounded-md py-2 px-4 outline-none"
-        type={props.type}
-        placeholder={props.placeholder}
-        value={props.value}
-        onChange={props.onChange}
-      />
+      <div className="flex items-start flex-col">
+        <label
+          className="capitalize text-[16px] font-extralight text-gray-500 "
+          htmlFor={props.htmlFor}
+        >
+          {props.labelText}
+        </label>
+        <input
+          className="py-3 px-3 w-full border-[1px] border-gray-200 outline-none hover:border-gray-400 duration-200 text-[15px] font-light"
+          value={props.value}
+          onChange={props.onChange}
+          type={props.type}
+          id={props.htmlFor}
+          placeholder={props.placeholder}
+        />
+      </div>
     </>
   );
 };
 
-export const PasswordFild: React.FC<InputFildProps> = (props) => {
+export const PasswordFild: React.FC<LabelInputFildProps> = (props) => {
   const [eyeOpen, setEyeOpen] = useState(false);
   return (
     <>
       <div className=" relative">
-        <InputFild
+        <LabelInputFild
+          htmlFor={props.htmlFor}
+          labelText={props.labelText}
           placeholder={props.placeholder}
-          type={eyeOpen ? "text" : "password"}
           value={props.value}
           onChange={props.onChange}
+          type={eyeOpen ? "text" : props.type}
         />
         {eyeOpen ? (
           <FaEye
-            className=" absolute top-[25%] right-5 text-[20px] cursor-pointer text-slate-600 duration-200"
+            className=" absolute top-[50%] right-5 text-[22px] cursor-pointer text-slate-600 duration-200"
             onClick={() => setEyeOpen(!eyeOpen)}
           />
         ) : (
           <FaEyeSlash
-            className=" absolute top-[25%] right-5 text-[20px] cursor-pointer text-slate-600 duration-200"
+            className=" absolute top-[50%] right-5 text-[22px] cursor-pointer text-slate-600 duration-200"
             onClick={() => setEyeOpen(!eyeOpen)}
           />
         )}
@@ -102,19 +199,19 @@ export const PasswordFild: React.FC<InputFildProps> = (props) => {
   );
 };
 
-interface MyButtonProps {
+interface SubmitButtonProps {
   type: "button" | "reset" | "submit";
   title: string;
   onClick?: () => void;
 }
 
-export const MyButton: React.FC<MyButtonProps> = (props) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   return (
     <>
       <button
-        onClick={props.onClick}
+        className=" w-full hover:border-[2px] border-[2px] border-white py-3 px-3 cursor-pointer duration-200 hover:border-red-400 bg-[#F56061] hover:bg-white text-white hover:text-black"
         type={props.type}
-        className="py-2 px-5 bg-green-400 font-semibold capitalize hover:bg-green-600 duration-200 cursor-pointer hover:text-slate-50 rounded-md shadow-2xl"
+        onClick={props.onClick}
       >
         {props.title}
       </button>
