@@ -18,5 +18,12 @@ func Connection() {
 
 	DB = conDB
 
-	conDB.AutoMigrate(&modles.User{})
+	if err := conDB.AutoMigrate(&modles.User{}); err != nil {
+		log.Fatal("Auto Migrate Failed User", err)
+	}
+
+	if err := conDB.AutoMigrate(&modles.Product{}); err != nil {
+		log.Fatal("Auto Migrate Failed Product", err)
+	}
+
 }

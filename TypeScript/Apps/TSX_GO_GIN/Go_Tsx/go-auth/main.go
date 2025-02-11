@@ -23,5 +23,6 @@ func main() {
 
 	// run the server
 	routes.Setup(app)
+	routes.SetupProductRoutes(app)
 	log.Fatal(app.Listen(":8000"))
 }

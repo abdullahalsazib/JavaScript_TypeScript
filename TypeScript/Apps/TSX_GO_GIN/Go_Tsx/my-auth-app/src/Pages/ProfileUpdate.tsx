@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { uploadProfilePicture } from "../api/Auth";
 
-const Profile = () => {
+const UpdateProfile = () => {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -26,7 +26,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-sky-100 w-full h-screen flex items-center justify-center">
+    <div className="bg-sky-100 flex items-center justify-center">
       <div>
         <h2>Update Profile Picture</h2>
         <input />
@@ -65,4 +65,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UpdateProfile;

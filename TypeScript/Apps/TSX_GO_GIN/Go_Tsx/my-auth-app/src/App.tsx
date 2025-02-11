@@ -1,14 +1,13 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
 import PrivateRoute from "./components/PrivateRoute";
-import Logout from "./Pages/Logout";
 import Navber from "./components/Navber";
-import Dashboard from "./Pages/Dashboard";
-import ProfileUpdate from "./Pages/ProfileUpdate";
 import { Suspense, useEffect, useState } from "react";
 import Home from "./Pages/Home";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import Login from "./Pages/Log_Sign/Login";
+import Register from "./Pages/Log_Sign/Register";
+import Logout from "./Pages/Log_Sign/Logout";
 
 const Loader = () => (
   <div className="flex items-center justify-center h-screen">
@@ -26,9 +25,11 @@ const AppContent = () => {
     return () => clearTimeout(timeout);
   }, [location.pathname]); // Runs on route change
 
-  // Hide Navbar on login & register pages
+  // Hide Navbar on login & register pages, and any routes under /dashboard
   const hideNavbarRoutes = ["/login", "/register"];
-  const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
+  const shouldShowNavbar =
+    !hideNavbarRoutes.includes(location.pathname) &&
+    !location.pathname.startsWith("/dashboard");
 
   return (
     <>
@@ -40,9 +41,8 @@ const AppContent = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/update" element={<ProfileUpdate />} />
           <Route
-            path="/dashboard"
+            path="/dashboard/*"
             element={
               <PrivateRoute>
                 <Dashboard />

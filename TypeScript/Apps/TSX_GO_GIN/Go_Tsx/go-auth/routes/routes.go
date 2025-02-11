@@ -18,3 +18,13 @@ func Setup(app *fiber.App) {
 	// Serve uploaded images
 	app.Static("/uploads", "./uploads")
 }
+
+func SetupProductRoutes(app *fiber.App) {
+	product := app.Group("/product")
+
+	product.Get("/", controllers.GetProducts)
+	product.Get("/:id", controllers.GetProductById)
+	product.Post("/", controllers.CreateProduct)
+	product.Put("/:id", controllers.UpdateProduct)
+	product.Delete("/:id", controllers.DeleteProduct)
+}
