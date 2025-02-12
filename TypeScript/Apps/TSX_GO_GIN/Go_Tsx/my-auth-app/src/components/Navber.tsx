@@ -4,14 +4,14 @@ import { AuthContext } from "../context/AuthContext";
 import { BiLogOut, BiUser } from "react-icons/bi";
 import Logout from "../Pages/Log_Sign/Logout";
 
-function Navber() {
+export const Navber = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useContext(AuthContext)!;
 
   const navLinks = [
     { hrefTo: "/", title: "Home" },
-    { hrefTo: "/", title: "Shop" },
+    { hrefTo: "/shop", title: "Shop" },
     { hrefTo: "/", title: "Pages" },
     { hrefTo: "/", title: "Blog" },
     { hrefTo: "/", title: "Contact Us" },
@@ -35,7 +35,7 @@ function Navber() {
   }, []);
 
   return (
-    <div className="w-full bg-white shadow-xs z-50">
+    <div className="w-full bg-[#FFFFFF] shadow-xs z-50 fixed ">
       <div className="w-full py-4 px-[10%] flex items-center justify-between">
         {/* Logo */}
         <Link to="/">
@@ -47,12 +47,12 @@ function Navber() {
         </Link>
 
         {/* Navigation Links */}
-        <ul className="flex items-center gap-10">
+        <ul className="flex items-center gap-15">
           {navLinks.map((item, index) => (
             <li key={index}>
               <Link
                 to={item.hrefTo}
-                className="uppercase text-gray-600 font-normal hover:font-semibold hover:text-gray-950 duration-200 text-[18px] tracking-wider"
+                className="uppercase text-gray-600 font-normal hover:font-semibold hover:text-gray-950 duration-200 text-sm tracking-wider"
               >
                 {item.title}
               </Link>
@@ -120,8 +120,6 @@ function Navber() {
     </div>
   );
 }
-
-export default Navber;
 
 interface ButtonIconProps {
   icon: React.ReactNode;

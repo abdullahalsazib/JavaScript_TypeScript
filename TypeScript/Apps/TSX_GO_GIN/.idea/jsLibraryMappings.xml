@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <excludedPredefinedLibrary name="TSX_GO_GIN/Go_Tsx/react_auth/node_modules" />
+  </component>
+</project>

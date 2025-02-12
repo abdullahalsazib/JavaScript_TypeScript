@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 // import { AuthContext } from "../../context/AuthContext";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Sideber from "./Sideber";
 import { BsMenuButton } from "react-icons/bs";
 import { BiLogOut, BiSearchAlt2, BiUserCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import Logout from "../Log_Sign/Logout";
 import { FcSettings } from "react-icons/fc";
-import { CgEditExposure } from "react-icons/cg";
+import { CgEditExposure, CgWebsite } from "react-icons/cg";
 import UpdateProfile from "../ProfileUpdate";
 import Profile from "../Profile";
 import { DashboardHome } from "./DashboardHome";
@@ -21,6 +21,7 @@ function Dashboard() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [sideOpen, setSideOpen] = useState(true);
   // const { user } = useContext(AuthContext)!;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -63,6 +64,10 @@ function Dashboard() {
               <IconButton
                 icon={<BiSearchAlt2 />}
                 handleClick={handleSearchToggle}
+              />
+              <IconButton
+                icon={<CgWebsite />}
+                handleClick={() => navigate("/")}
               />
             </div>
 

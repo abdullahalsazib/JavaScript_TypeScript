@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaEdit, FaTrash, FaTimes } from "react-icons/fa";
+import { FaEdit, FaTrash, FaTimes, FaSync } from "react-icons/fa";
 import { deleteProduct, getAllProducts, updateProduct } from "../api/Product";
 
 const ProductTable = () => {
@@ -84,7 +84,16 @@ const ProductTable = () => {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">Product List</h2>
+      <div className=" w-full flex items-center justify-between">
+        <h2 className="text-2xl font-bold mb-4">Product List</h2>
+        <button
+          onClick={fetchProducts}
+          className="text-blue-500 hover:text-blue-700"
+          title="Reload Data"
+        >
+          <FaSync className="w-5 h-5" />
+        </button>
+      </div>
       <table className="w-full border-collapse border border-gray-200">
         <thead>
           <tr className="bg-gray-100">
