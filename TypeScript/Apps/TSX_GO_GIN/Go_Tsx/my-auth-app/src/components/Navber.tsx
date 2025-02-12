@@ -3,19 +3,12 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { BiLogOut, BiUser } from "react-icons/bi";
 import Logout from "../Pages/Log_Sign/Logout";
+import { navLinks } from "../data/NavData";
 
 export const Navber = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useContext(AuthContext)!;
-
-  const navLinks = [
-    { hrefTo: "/", title: "Home" },
-    { hrefTo: "/shop", title: "Shop" },
-    { hrefTo: "/", title: "Pages" },
-    { hrefTo: "/", title: "Blog" },
-    { hrefTo: "/", title: "Contact Us" },
-  ];
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -119,7 +112,7 @@ export const Navber = () => {
       </div>
     </div>
   );
-}
+};
 
 interface ButtonIconProps {
   icon: React.ReactNode;

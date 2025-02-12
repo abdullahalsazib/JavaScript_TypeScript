@@ -1,3 +1,4 @@
+import { Footer } from "./Footer";
 import ProductList from "./ProductList";
 
 function Home() {
@@ -41,6 +42,7 @@ function Home() {
         <h1 className=" text-[52px] text-center capitalize">Our Products</h1>
         <ProductList />
       </div>
+      <Footer />
     </>
   );
 }
