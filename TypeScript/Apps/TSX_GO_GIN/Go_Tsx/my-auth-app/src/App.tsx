@@ -35,7 +35,9 @@ const AppContent = () => {
     <>
       {shouldShowNavbar && <Navber />}
       {loading ? (
-        <Loader />
+        <>
+          <Loader />
+        </>
       ) : (
         <Routes>
           <Route path="/" element={<Home />} />

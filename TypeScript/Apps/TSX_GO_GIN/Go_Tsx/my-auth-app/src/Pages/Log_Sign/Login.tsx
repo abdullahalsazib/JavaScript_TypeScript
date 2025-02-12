@@ -9,12 +9,15 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 import { getUser, login } from "../../api/Auth";
 import LineFooter from "../Dashboard/LineFooter";
+import useAlertStore from "../../components/aleartStore";
+import Alert from "../../components/Alert";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, setUser } = useContext(AuthContext)!;
   const navigate = useNavigate();
+  const { showAlert } = useAlertStore();
 
   const handleLogin = async () => {
     if (email.length != 0 && password.length != 0) {
@@ -23,21 +26,24 @@ const Login = () => {
         const userData = await getUser();
 
         setUser(userData.data);
+        // showAlert("Logged in successfully!", "success");
         if (user !== "") {
           navigate("/dashboard");
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        alert(error.response.data.message);
+        // alert();
+        showAlert(error.response.data.message, "error");
         // console.log(error);
       }
     } else {
-      alert("Fill Up the input fild!");
+      showAlert("Fill Up the input fild!", "error");
     }
   };
 
   return (
     <>
+      <Alert />
       <div className=" w-full h-screen flex items-center justify-center">
         <div className=" w-full md:w-[90%] lg:w-[80%] 2xl:w-[60%]  h-full lg:h-[80vh] py-0 md:py-10  flex items-center justify-between md:flex-row flex-col rounded-lg shadow-xl">
           <div className=" hidden md:flex items-center justify-between flex-col w-[50%]  h-full lg:h-[80vh] bg-[#F67878] p-10 rounded-s-2xl">

@@ -9,10 +9,10 @@ type User struct {
 }
 
 type Product struct {
-	ID       uint   `json:"id" gorm:"primary_key"`
-	Name     string `json:"name"`
-	Desc     string `json:"desc"`
-	Price    uint   `json:"price"`
-	Stock    uint   `json:"stock"`
-	ImageUrl string `json:"image_url"`
+	ID          uint    `json:"id" gorm:"primary_key"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	Price       float64 `json:"price"`
+	Stock       int     `json:"stock"`
+	ImageUrl    string  `json:"image_url"`
 }

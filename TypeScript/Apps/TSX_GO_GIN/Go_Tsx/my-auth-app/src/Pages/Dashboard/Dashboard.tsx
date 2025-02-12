@@ -12,13 +12,14 @@ import UpdateProfile from "../ProfileUpdate";
 import Profile from "../Profile";
 import { DashboardHome } from "./DashboardHome";
 import Ecommearce from "./Ecommearce";
+import ProductTable from "../../products/ProductTable";
 
 function Dashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false); // 🔹 Toggle Search Box
   const searchRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [sideOpen, setSideOpen] = useState(false);
+  const [sideOpen, setSideOpen] = useState(true);
   // const { user } = useContext(AuthContext)!;
 
   useEffect(() => {
@@ -126,6 +127,7 @@ function Dashboard() {
                 {/* Update Profile Route */}
                 <Route path="ecommearce" element={<Ecommearce />} />
                 <Route path="update" element={<UpdateProfile />} />
+                <Route path="category" element={<ProductTable />} />
                 {/* Add new routes here */}
                 {/* Example: Add Route for 'Settings' */}
                 <Route path="settings" element={<h1>Settings Page</h1>} />

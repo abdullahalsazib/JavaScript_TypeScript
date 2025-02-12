@@ -16,7 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sideOpen }) => {
   const SideBerNav = [
     { To: "/dashboard", Icon: <GrDashboard />, Label: "Dashboard" },
     { To: "/dashboard/ecommearce", Icon: <BsShop />, Label: "Ecommerce" },
-    { To: "/category", Icon: <BiSolidCategory />, Label: "Category" },
+    { To: "/dashboard/category", Icon: <BiSolidCategory />, Label: "Category" },
     { To: "/order", Icon: <BiBorderAll />, Label: "Order" },
     { To: "/dashboard/profile", Icon: <FaUsers />, Label: "User" },
   ];
