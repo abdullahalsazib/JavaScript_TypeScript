@@ -15,6 +15,7 @@ func Setup(app *fiber.App) {
 	app.Post("/api/update", controllers.UpdateProfile)
 	app.Get("/api/profile", controllers.GetUserProfile)
 	app.Get("/api/test", controllers.TestApi)
+	// add jack
 
 	// Serve uploaded images
 	app.Static("/uploads", "./uploads")

@@ -27,6 +27,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home name={name} />} />
             <Route path="/login" element={<Login setName={setName} />} />
             <Route path="/register" element={<Register />} />
+            {/* add some commit for git status */}
           </Routes>
         </main>
       </BrowserRouter>
