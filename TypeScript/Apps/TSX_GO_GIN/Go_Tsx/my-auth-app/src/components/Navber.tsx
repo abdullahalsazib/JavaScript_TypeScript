@@ -125,15 +125,14 @@ export const Navber = () => {
               icon={<MdOutlineShoppingCart />}
             />
             {isCart && (
-              <div className=" absolute w-[417px] shadow-lg rounded-lg bg-[#fff] top-0 right-0 p-5">
+              <div className=" absolute w-[417px] shadow-lg rounded-lg bg-[#fff] top-0 right-0 p-5 duration-200">
                 <div className="flex items-center justify-between">
                   <h1 className=" text-2xl capitalize">Shopping Cart</h1>
-                  <button
+
+                  <ButtonIcon
+                    icon={<BsBagX />}
                     onClick={() => setIsCart(!isCart)}
-                    className=" text-2xl cursor-pointer"
-                  >
-                    <BsBagX />
-                  </button>
+                  />
                 </div>
                 <hr className="text-slate-300 w-full my-5" />
                 <div className=" flex flex-col gap-2">
@@ -202,9 +201,7 @@ const CartBugComponent = () => {
             1 X <span className="text-amber-400">BDT: 10020</span>
           </p>
         </div>
-        <button className=" text-xl cursor-pointer">
-          <BiXCircle />
-        </button>
+        <ButtonIcon icon={<BiXCircle />} />
       </div>
     </>
   );

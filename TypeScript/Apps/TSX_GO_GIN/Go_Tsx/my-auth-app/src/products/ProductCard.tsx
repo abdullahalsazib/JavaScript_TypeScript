@@ -1,6 +1,7 @@
 import React from "react";
-import { BiShare, BiTransfer } from "react-icons/bi";
+import { BiDetail, BiShare, BiTransfer } from "react-icons/bi";
 import { HiHeart } from "react-icons/hi";
+import { SiShopee } from "react-icons/si";
 
 interface ProductProps {
   id?: number;
@@ -50,9 +51,10 @@ const ProductCard: React.FC<{ product: ProductProps }> = ({ product }) => {
 
         {/* Hover Section */}
         <div className="absolute top-0 left-0 w-full h-full bg-[#c8c8c882] bg-opacity-50 flex items-center justify-center flex-col text-white opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
-          <button className="py-2 px-6 text-lg  bg-white hover:text-amber-600 text-black duration-200 cursor-pointer capitalize">
-            Add to Cart
-          </button>
+          <div className=" flex items-center justify-center gap-3 flex-col">
+            <CartBtn title="Add to Cart" icons={<SiShopee />} />
+            <CartBtn title="Details" icons={<BiDetail />} />
+          </div>
           <div className="flex items-center justify-center gap-1 w-full px-1 py-2">
             <CardSubLink
               icons={
@@ -68,7 +70,7 @@ const ProductCard: React.FC<{ product: ProductProps }> = ({ product }) => {
             />
             <CardSubLink
               icons={
-                <HiHeart className=" group-hover/sub:text-sky-500 group-hover/sub:scale-125" />
+                <HiHeart className=" group-hover/sub:text-red-500 group-hover/sub:scale-125" />
               }
               title="like"
             />
@@ -85,6 +87,19 @@ interface CardSubLinkProps {
   title: string;
   icons: React.ReactNode;
 }
+
+const CartBtn: React.FC<CardSubLinkProps> = ({ title, icons }) => {
+  return (
+    <>
+      <button className="py-2 px-6 text-sm  bg-white hover:text-orange-500 text-black cursor-pointer capitalize flex items-center justify-center gap-2 group/cartbtn active:scale-115 duration-200">
+        <div className=" text-lg group-hover/cartbtn:scale-115 duration-200">
+          {icons}
+        </div>{" "}
+        <h1> {title}</h1>
+      </button>
+    </>
+  );
+};
 
 const CardSubLink: React.FC<CardSubLinkProps> = (props) => {
   return (
