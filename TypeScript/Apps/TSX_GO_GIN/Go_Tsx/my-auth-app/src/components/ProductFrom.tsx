@@ -16,7 +16,7 @@ const ProductForm = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value, type } = e.target;
-
+    console.log("name ", typeof name);
     setProduct({
       ...product,
       [name]: type === "number" ? parseFloat(value) || 0 : value,
@@ -31,15 +31,9 @@ const ProductForm = () => {
     try {
       const response = await createProduct(product);
       showAlert(response.data, "info");
-      console.log("✅ Product Created:", response.data);
-
       alert("Product created successfully!");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error(
-        "❌ Error creating product:",
-        error.response?.data || error
-      );
       alert(error.response?.data?.error || "Failed to create product");
     }
   };
@@ -104,7 +98,7 @@ const ProductForm = () => {
           value={product.image_url}
           placeholder="Image URL"
           onChange={handleChange}
-          className="w-full outline-1 border-1 border-white focus:border-black outline-slate-300 focus:border-1 py-2 px-3 capitalize rounded-md"
+          className="w-full outline-1 border-1 border-white focus:border-black outline-slate-300 focus:border-1 py-2 px-3 lowercase rounded-md "
         />
       </div>
 

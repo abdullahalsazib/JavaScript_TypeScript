@@ -97,6 +97,7 @@ const ProductTable = () => {
       <table className="w-full border-collapse border border-gray-200">
         <thead>
           <tr className="bg-gray-100">
+            <th className="border border-gray-300 p-2">SL</th>
             <th className="border border-gray-300 p-2">ID</th>
             <th className="border border-gray-300 p-2">Image</th>
             <th className="border border-gray-300 p-2">Name</th>
@@ -108,22 +109,23 @@ const ProductTable = () => {
         <tbody>
           {products.map((product, index) => (
             <tr key={index} className="border border-gray-300">
-              <td className="p-2 text-center">{product.id}</td>
+              <td className="p-2 text-center">{index + 1}</td>
+              <td className="p-2 text-center">#{product.id}</td>
               <td className="p-2 text-center">
                 <img className="w-10" src={product.image_url} alt="" />
               </td>
               <td className="p-2 text-center">{product.name}</td>
-              <td className="p-2 text-center">${product.price}</td>
+              <td className="p-2 text-center"> 💵 {product.price}</td>
               <td className="p-2 text-center">{product.stock}</td>
               <td className="p-2 text-center flex justify-center gap-3">
                 <button
-                  className="text-blue-500"
+                  className="text-white sm-btn bg-blue-400"
                   onClick={() => openEditModal(product)}
                 >
                   <FaEdit />
                 </button>
                 <button
-                  className="text-red-500"
+                  className="text-red-50 sm-btn bg-red-500"
                   onClick={() => handleDelete(product.id)}
                 >
                   <FaTrash />
@@ -201,7 +203,7 @@ const ProductTable = () => {
             {/* Submit Button */}
             <button
               onClick={handleEditSubmit}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer"
             >
               Update Product
             </button>
