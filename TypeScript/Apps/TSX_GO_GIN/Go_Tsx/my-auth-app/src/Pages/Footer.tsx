@@ -50,7 +50,7 @@ export const Footer = () => {
             />
             <button className=" py-2 px-5 uppercase border-2 flex items-center justify-between gap-5 rounded-md cursor-pointer hover:border-slate-300 duration-200">
               <RxButton />
-              subscribe
+              Subscribe
             </button>
           </div>
         </div>

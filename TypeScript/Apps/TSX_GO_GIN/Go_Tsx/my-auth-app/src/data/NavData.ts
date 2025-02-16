@@ -11,3 +11,12 @@
     { hrefTo: "/", title: "Retruns" },
     { hrefTo: "/", title: "Privacy Policies" },
   ];
+
+export const LinkNavbar = [
+    {hrefTo:"/", title: "home"},
+    {hrefTo:"/", title: "blog"},
+    {hrefTo:"/", title: "page"},
+    {hrefTo:"/", title: "shop"},
+    {hrefTo:"/", title: "contact us"},
+    {hrefTo:"/", title: "about"},
+  ]
