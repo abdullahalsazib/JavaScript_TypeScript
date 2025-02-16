@@ -20,3 +20,12 @@ export const LinkNavbar = [
     {hrefTo:"/", title: "contact us"},
     {hrefTo:"/", title: "about"},
   ]
+
+  export interface ProductProps {
+  id?: number;
+  name?: string;
+  description?: string;
+  price?: number;
+  stock?: number;
+  image_url?: string;
+}

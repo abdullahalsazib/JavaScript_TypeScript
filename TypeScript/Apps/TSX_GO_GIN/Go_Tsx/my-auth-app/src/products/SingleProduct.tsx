@@ -1,4 +1,4 @@
-import { BiPlus, BiSolidStar, BiStar } from "react-icons/bi";
+import { BiPlus, BiRightArrow, BiSolidStar, BiStar } from "react-icons/bi";
 import {
   FaAngleRight,
   FaFacebook,
@@ -6,8 +6,11 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { Footer } from "../Pages/Footer";
+import ProductList from "../Pages/ProductList";
+import { useState } from "react";
 
 const SingleProduct = () => {
+  const [cartItem, setCartItem] = useState(0);
   return (
     <div className=" pt-19">
       <div className="  bg-[#fff3e3] w-full py-8 px-[10%] text-lg  text-slate-500 flex items-center  gap-5 capitalize">
@@ -55,34 +58,45 @@ const SingleProduct = () => {
               sit ipsum
             </p>
             <div className=" flex items-center justify-around gap-10 py-5">
-              <div className=" flex items-center justify-center border-2 rounded-lg border-slate-400">
-                <button className=" cursor-pointer text-lg  py-4 px-5">
-                  +
-                </button>
-                <div className="  py-4 px-5">1</div>
-                <button className=" cursor-pointer text-lg  py-4 px-5">
+              <div className=" flex items-center justify-center border-2 rounded-lg border-slate-400 hover:bg-slate-100 group/icon">
+                <button
+                  className=" cursor-pointer text-lg  py-4 px-5  active:scale-125"
+                  onClick={() => setCartItem(cartItem - 1)}
+                >
                   -
+                </button>
+                <input
+                  type="number"
+                  value={cartItem}
+                  className=" w-20 text-center border-none outline-none"
+                  onChange={(e) => setCartItem(Number(e.target.value))}
+                />
+                <button
+                  className=" cursor-pointer text-lg  py-4 px-5 active:scale-125"
+                  onClick={() => setCartItem(cartItem + 1)}
+                >
+                  +
                 </button>
               </div>
               <CommonBtnCart title="Add to Cart" />
               <CommonBtnCart title="Compare" icon={<BiPlus />} />
             </div>
           </div>
-          <div className=" flex items-start justify-start gap-4 flex-col">
-            <p className=" text-sm font-mono text-slate-600 capitalize opacity-50">
+          <div className=" flex items-start justify-start gap-4 flex-col border-t-1 border-slate-200 w-full py-10">
+            <p className=" text-lg font-mono text-slate-600 capitalize opacity-50">
               Category : sofa
             </p>
-            <p className=" text-sm font-mono text-slate-600 capitalize opacity-50">
+            <p className=" text-lg font-mono text-slate-600 capitalize opacity-50">
               tag : sofa, chair, Home, shop
             </p>
-            <span className=" flex items-center justify-start gap-4">
-              <a href="#">
+            <span className=" flex items-center justify-start gap-4 text-lg">
+              <a href="#" className=" text-2xl hover:scale-110 duration-200">
                 <FaFacebook />
               </a>
-              <a href="#">
+              <a href="#" className=" text-2xl hover:scale-110 duration-200">
                 <FaLinkedin />
               </a>
-              <a href="#">
+              <a href="#" className=" text-2xl hover:scale-110 duration-200">
                 <FaTwitter />
               </a>
             </span>
@@ -99,8 +113,8 @@ const SingleProduct = () => {
           <button className="text-slate-400 cursor-pointer">Reviews [5]</button>
         </div>
         {/* discription content's */}
-        <div className=" text-slate-700">
-          <p className=" text-sm py-5 text-justify capitalize">
+        <div className=" text-slate-500">
+          <p className=" text-lg py-5 text-justify capitalize">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate
             error, nisi quidem earum placeat, laborum iusto nulla, sunt
             necessitatibus excepturi quasi eos doloribus! Delectus, praesentium,
@@ -137,6 +151,21 @@ const SingleProduct = () => {
             voluptates aspernatur, tempora recusandae, vel reprehenderit veniam.
           </p>
         </div>
+        <div className="grid grid-cols-2 gap-10 py-5">
+          <div className=" bg-slate-200 h-[400px] rounded-xl"></div>
+          <div className=" bg-slate-200 h-[400px] rounded-xl"></div>
+        </div>
+
+        {/* related product */}
+        <div className=" border-t-[1px] border-slate-300 mt-10 pt-10">
+          <h1 className=" text-[52px] text-center capitalize">
+            Related Products
+          </h1>
+          <ProductList />
+          <div className=" flex items-center justify-center py-5">
+            <SeeMoreBtn title=" see more" />
+          </div>
+        </div>
       </div>
       <Footer />
     </div>
@@ -151,9 +180,21 @@ const CommonBtnCart: React.FC<{
 }> = (props) => {
   return (
     <>
-      <button className=" outline-1 outline-black py-4 px-9 cursor-pointer w-full rounded-lg capitalize flex items-center justify-center gap-5">
+      <button className=" outline-1 outline-slate-300 py-4 px-9 cursor-pointer w-full rounded-lg capitalize flex items-center justify-center gap-5 bg-slate-50 duration-200 hover:bg-slate-100 hover:text-slate-500 active:scale-105">
         {props.icon}
         {props.title}
+      </button>
+    </>
+  );
+};
+export const SeeMoreBtn: React.FC<{
+  title: string;
+}> = ({ title }) => {
+  return (
+    <>
+      <button className=" capitalize text-sm py-3 px-20 active:scale-105 group/icon rounded-md text-orange-500 cursor-pointer hover:bg-orange-500 hover:text-white duration-200 border-2 border-orange-400 flex items-center justify-center gap-5">
+        {title}
+        <BiRightArrow className=" group-hover/icon:scale-125 group-hover/icon:translate-x-10 duration-500" />
       </button>
     </>
   );

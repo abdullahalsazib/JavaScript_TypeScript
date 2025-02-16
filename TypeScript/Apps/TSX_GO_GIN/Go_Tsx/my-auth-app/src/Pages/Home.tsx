@@ -1,3 +1,4 @@
+import { SeeMoreBtn } from "../products/SingleProduct";
 import { Footer } from "./Footer";
 import ProductList from "./ProductList";
 
@@ -18,7 +19,7 @@ function Home() {
               corrupti ipsa. Lorem ipsum dolor sit amet.
             </p>
           </div>
-          <button className=" py-7 px-15 font-semibold text-xl  text-white uppercase bg-[#B88E2F]">
+          <button className=" py-7 px-15 font-semibold text-xl  text-white uppercase bg-[#B88E2F] hover:bg-white hover:border-2 hover:border-[#B88E2F] hover:text-[#B88E2F] duration-200 border-2 cursor-pointer">
             buy now
           </button>
         </div>
@@ -41,6 +42,9 @@ function Home() {
       <div className=" px-[10%] py-10">
         <h1 className=" text-[52px] text-center capitalize">Our Products</h1>
         <ProductList />
+        <div className="flex items-center justify-center py-5">
+          <SeeMoreBtn title="see more" />
+        </div>
       </div>
       <Footer />
     </>
