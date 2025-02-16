@@ -50,7 +50,7 @@ const ProductCard: React.FC<{ product: ProductProps }> = ({ product }) => {
         </div>
 
         {/* Hover Section */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[#c8c8c882] bg-opacity-50 flex items-center justify-center flex-col text-white opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-0 left-0 w-full h-full bg-[#3e3d3d82] bg-opacity-50 flex items-center justify-center flex-col text-white opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
           <div className=" flex items-center justify-center gap-3 flex-col">
             <CartBtn title="Add to Cart" icons={<SiShopee />} />
             <CartBtn title="Details" icons={<BiDetail />} />
@@ -106,10 +106,10 @@ const CardSubLink: React.FC<CardSubLinkProps> = (props) => {
     <>
       <a
         href="#"
-        className="flex items-center justify-center gap-1 group/sub font-light capitalize text-sm bg-[#f3f3f36e] py-1 px-2 text-slate-900 hover:scale-110 duration-200"
+        className="flex items-center justify-center gap-1 group/sub font-light capitalize text-sm  py-1 px-2 text-slate-50 hover:scale-110 duration-200"
       >
         {props.icons}
-        <p className=" group-hover/sub:text-slate-500">{props.title}</p>
+        <p className=" group-hover/sub:text-slate-100">{props.title}</p>
       </a>
     </>
   );

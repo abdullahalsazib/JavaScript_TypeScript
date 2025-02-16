@@ -10,6 +10,7 @@ import Register from "./Pages/Log_Sign/Register";
 import Logout from "./Pages/Log_Sign/Logout";
 import Shop from "./Pages/Shop";
 import Cart from "./Pages/Cart";
+import SingleProduct from "./products/SingleProduct";
 
 const Loader = () => (
   <div className="flex items-center justify-center h-screen">
@@ -45,6 +46,7 @@ const AppContent = () => {
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/detils" element={<SingleProduct />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
