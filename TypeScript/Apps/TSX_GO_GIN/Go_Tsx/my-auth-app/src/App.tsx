@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
-import { Navber } from "./components/Navber";
 import { Suspense, useEffect, useState } from "react";
 import Home from "./Pages/Home";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -12,6 +11,11 @@ import Shop from "./Pages/Shop";
 import Cart from "./Pages/Cart";
 import SingleProduct from "./products/SingleProduct";
 import { CartProvider } from "./context/ProductContext";
+import Checkout from "./Pages/Checkout";
+import Contact from "./Pages/Contact";
+import NotFound from "./Pages/NotFound";
+import { Navber } from "./components/Navber";
+import Blog from "./Pages/Blog";
 
 const Loader = () => (
   <div className="flex items-center justify-center h-screen">
@@ -48,9 +52,14 @@ const AppContent = () => {
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/detils/:id" element={<SingleProduct />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="*" element={<NotFound />} />
+
             <Route
               path="/dashboard/*"
               element={

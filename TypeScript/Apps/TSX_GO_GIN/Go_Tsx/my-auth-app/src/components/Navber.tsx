@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { BiLogOut, BiUser } from "react-icons/bi";
@@ -9,6 +9,7 @@ import { IoSearch } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { BsBagX } from "react-icons/bs";
 import { useCart } from "../context/ProductContext";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 export const Navber = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -16,6 +17,9 @@ export const Navber = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useContext(AuthContext)!;
   const { cartCount } = useCart();
+
+  const displayCount =
+    cartCount > 99 ? "99+" : cartCount > 9 ? "9+" : cartCount;
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -128,8 +132,8 @@ export const Navber = () => {
               icon={<MdOutlineShoppingCart />}
             />
             {cartCount > 0 && (
-              <span className="absolute -top-3  -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-                {cartCount}
+              <span className="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-xs px-2 py-1">
+                {displayCount}
               </span>
             )}
             {isCart && (
@@ -178,7 +182,8 @@ const ButtonIcon: React.FC<ButtonIconProps> = (props) => {
 };
 
 const Cart = () => {
-  const { cart } = useCart();
+  const navigate = useNavigate();
+  const { cart, clearCart } = useCart(); // Assuming `clearCart` is available
 
   if (cart.length === 0) {
     return <p className="text-center p-4">Your cart is empty.</p>;
@@ -193,10 +198,7 @@ const Cart = () => {
   return (
     <div className="">
       {cart.map((item) => (
-        <div
-          key={item.id}
-          className="flex items-center bg-slate-50 cursor-pointer py-3 px-3 rounded-lg hover:bg-slate-100"
-        >
+        <div key={item.id} className="flex items-center border-b p-2">
           <img
             src={item.image_url}
             alt={item.name}
@@ -217,10 +219,18 @@ const Cart = () => {
           <p className="text-amber-600 capitalize text-lg">BDT: {subtotal}</p>
         </div>
       </div>
+
       <div className="border-t-[1px] border-gray-400 py-5 flex items-center justify-between">
-        <CartBtn title="Cart" />
-        <CartBtn title="Checkout" />
-        <CartBtn title="Comparison" />
+        {/* Clear Cart Button */}
+        <button
+          onClick={clearCart} // Calls clearCart function
+          className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer"
+        >
+          <RiDeleteBin5Line />
+        </button>
+        <CartBtn handleClick={() => navigate("/cart")} title="Cart" />
+        <CartBtn handleClick={() => navigate("/checkout")} title="Checkout" />
+        <CartBtn isDisabled={true} title="Comparison" />
       </div>
     </div>
   );
@@ -228,11 +238,26 @@ const Cart = () => {
 
 interface CartBtnProps {
   title: string;
+  handleClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  isDisabled?: boolean;
 }
-const CartBtn: React.FC<CartBtnProps> = ({ title }) => {
+const CartBtn: React.FC<CartBtnProps> = ({
+  title,
+  handleClick,
+  type,
+  isDisabled,
+}) => {
   return (
     <>
-      <button className=" py-1.5 px-5 rounded-full border-[1px] border-slate-800 cursor-pointer capitalize">
+      <button
+        disabled={isDisabled}
+        type={type}
+        onClick={handleClick}
+        className={` ${
+          isDisabled ? "opacity-50 pointer-events-none" : "opacity-90"
+        } py-1.5 px-5 rounded-full border-[1px] border-slate-300 cursor-pointer capitalize hover:bg-slate-100 active:scale-105 duration-300`}
+      >
         {title}
       </button>
     </>
