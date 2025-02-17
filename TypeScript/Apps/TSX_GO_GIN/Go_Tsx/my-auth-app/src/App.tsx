@@ -11,6 +11,7 @@ import Logout from "./Pages/Log_Sign/Logout";
 import Shop from "./Pages/Shop";
 import Cart from "./Pages/Cart";
 import SingleProduct from "./products/SingleProduct";
+import { CartProvider } from "./context/ProductContext";
 
 const Loader = () => (
   <div className="flex items-center justify-center h-screen">
@@ -36,30 +37,32 @@ const AppContent = () => {
 
   return (
     <>
-      {shouldShowNavbar && <Navber />}
-      {loading ? (
-        <>
-          <Loader />
-        </>
-      ) : (
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/detils/:id" element={<SingleProduct />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard/*"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/logout" element={<Logout />} />
-        </Routes>
-      )}
+      <CartProvider>
+        {shouldShowNavbar && <Navber />}
+        {loading ? (
+          <>
+            <Loader />
+          </>
+        ) : (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/detils/:id" element={<SingleProduct />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/dashboard/*"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
+        )}
+      </CartProvider>
     </>
   );
 };

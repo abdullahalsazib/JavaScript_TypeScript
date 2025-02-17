@@ -7,10 +7,26 @@ import {
 } from "react-icons/fa";
 import { Footer } from "../Pages/Footer";
 import ProductList from "../Pages/ProductList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProductById, ProductProps } from "../api/Product";
+import { useParams } from "react-router-dom";
 
 const SingleProduct = () => {
+  const { id } = useParams<{ id: string }>();
+  const [product, setProduct] = useState<ProductProps | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      getProductById(id)
+        .then((response) => setProduct(response.data))
+        .catch((error) => console.error("Error Fetching :", error));
+    }
+  }, [id]);
   const [cartItem, setCartItem] = useState(0);
+
+  if (!product) {
+    return <p className="text-center">Loading product details...</p>;
+  }
   return (
     <div className=" pt-19">
       <div className="  bg-[#fff3e3] w-full py-8 px-[10%] text-lg  text-slate-500 flex items-center  gap-5 capitalize">
@@ -22,20 +38,31 @@ const SingleProduct = () => {
       <div className=" flex w-full px-[10%] gap-10 flex-row py-10 h-[70vh]">
         <div className=" w-1/2  flex items-start justify-start flex-row gap-10">
           <div className=" flex items-start justify-center flex-col gap-10">
-            <div className=" w-20 h-20 bg-slate-100 ring-1 ring-blue-500 opacity-50 rounded-lg shadow-2xl"></div>
-            <div className=" w-20 h-20 bg-slate-100 ring-1 ring-blue-500 opacity-50 rounded-lg shadow-2xl"></div>
-            <div className=" w-20 h-20 bg-slate-100 ring-1 ring-blue-500 opacity-50 rounded-lg shadow-2xl"></div>
-            <div className=" w-20 h-20 bg-slate-100 ring-1 ring-blue-500 opacity-50 rounded-lg shadow-2xl"></div>
+            <img
+              src={product.image_url}
+              alt="error"
+              className=" w-20 h-20 bg-slate-100 ring-1 ring-blue-500 p-1 rounded-lg shadow-2xl"
+            />
+            <img
+              src={product.image_url}
+              alt="error"
+              title={product.image_url}
+              className=" w-20 h-20 bg-slate-100 ring-1 ring-blue-500 p-1 rounded-lg shadow-2xl"
+            />
           </div>
-          <div className=" w-full h-[100%] bg-slate-100 shadow-2xl rounded-lg ring-1 ring-blue-500 opacity-50"></div>
+          <img
+            className=" w-[80%] bg-slate-100 shadow-2xl rounded-lg ring-1 ring-blue-500 opacity-90 p-2"
+            src={product.image_url}
+            alt=""
+          />
         </div>
 
         <div className=" w-1/2  flex items-start justify-between  gap-20 flex-col">
           <div className=" space-y-1">
             <h1 className=" text-[42px] font-bold capitalize">
-              Lorem, ipsum dolor.
+              {product.name}
             </h1>
-            <p className=" text-slate-600 text-2xl">BDT: 12000tk</p>
+            <p className=" text-slate-600 text-2xl">৳. {product.price}tk</p>
             <div className="flex items-center justify-start gap-5 py-2">
               <div className=" flex items-center justify-center text-xl space-x-2">
                 <BiSolidStar className=" text-yellow-500" />
@@ -50,12 +77,7 @@ const SingleProduct = () => {
               </p>
             </div>
             <p className=" w-[60%] text-sm text-slate-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Recusandae sequi aperiam sit ipsum at illo tempore necessitatibus
-              impedit? Placeat aliquid ea temporibus veritatis obcaecati
-              expedita animi sint nesciunt architecto error. Lorem ipsum dolor
-              sit amet consectetur adipisicing elit. Recusandae sequi aperiam
-              sit ipsum
+              {product.description}
             </p>
             <div className=" flex items-center justify-around gap-10 py-5">
               <div className=" flex items-center justify-center border-2 rounded-lg border-slate-400 hover:bg-slate-100 group/icon">
@@ -115,45 +137,28 @@ const SingleProduct = () => {
         {/* discription content's */}
         <div className=" text-slate-500">
           <p className=" text-lg py-5 text-justify capitalize">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate
-            error, nisi quidem earum placeat, laborum iusto nulla, sunt
-            necessitatibus excepturi quasi eos doloribus! Delectus, praesentium,
-            sunt libero recusandae reiciendis cupiditate blanditiis dolor
-            adipisci cum nobis tenetur quia sapiente fugiat facere unde, rem
-            consectetur officia in fugit nesciunt provident impedit atque.
+            {product.description}
           </p>
           <p className=" text-sm text-justify capitalize">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            aperiam, ipsum, expedita nihil provident dolores minus temporibus
-            quod, amet esse aspernatur. Fugit eos illo minima adipisci itaque
-            labore voluptatibus sit excepturi doloremque! Perspiciatis
-            dignissimos iure eligendi sint fugit? Cumque praesentium illo
-            exercitationem corrupti harum quis est. Mollitia quisquam iure qui
-            dicta quibusdam reiciendis itaque maiores labore, debitis aspernatur
-            cum rerum fuga officia velit necessitatibus magnam quasi! Rem,
-            dolores aspernatur officiis deserunt, itaque, reiciendis minus
-            impedit nam consectetur earum laudantium dolor. Sit odio, magnam
-            maxime placeat pariatur sequi a quod nobis excepturi eum libero
-            voluptates aspernatur, tempora recusandae, vel reprehenderit veniam.
+            {product.description}
           </p>
           <p className=" py-5 text-sm text-justify capitalize">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            aperiam, ipsum, expedita nihil provident dolores minus temporibus
-            quod, amet esse aspernatur. Fugit eos illo minima adipisci itaque
-            labore voluptatibus sit excepturi doloremque! Perspiciatis
-            dignissimos iure eligendi sint fugit? Cumque praesentium illo
-            exercitationem corrupti harum quis est. Mollitia quisquam iure qui
-            dicta quibusdam reiciendis itaque maiores labore, debitis aspernatur
-            cum rerum fuga officia velit necessitatibus magnam quasi! Rem,
-            dolores aspernatur officiis deserunt, itaque, reiciendis minus
-            impedit nam consectetur earum laudantium dolor. Sit odio, magnam
-            maxime placeat pariatur sequi a quod nobis excepturi eum libero
-            voluptates aspernatur, tempora recusandae, vel reprehenderit veniam.
+            {product.description}
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-10 py-5">
-          <div className=" bg-slate-200 h-[400px] rounded-xl"></div>
-          <div className=" bg-slate-200 h-[400px] rounded-xl"></div>
+        <div className="flex gap-10 py-5 items-center justify-center">
+          {/* <div className=" bg-slate-200 h-[400px] rounded-xl"> </div> */}
+          <img
+            src={product.image_url}
+            className=" w-[50%]!   border-2 border-slate-300 rounded-lg p-3"
+            alt=""
+          />
+          <img
+            src={product.image_url}
+            className=" w-[50%]!   border-2 border-slate-300 rounded-lg p-3"
+            alt=""
+          />
+          {/* <div className=" bg-slate-200 h-[400px] rounded-xl"></div> */}
         </div>
 
         {/* related product */}

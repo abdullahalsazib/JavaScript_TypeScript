@@ -4,14 +4,15 @@ import { HiHeart } from "react-icons/hi";
 import { SiShopee } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import { ProductProps } from "../data/NavData";
+import { useCart } from "../context/ProductContext";
 
 const ProductCard: React.FC<{ product: ProductProps }> = ({ product }) => {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   const handleNavigate = () => {
     navigate(`/detils/${product.id}`);
   };
-  // const ProductCard: React.FC = () => {
   return (
     <>
       <div className="cursor-pointer duration-200 relative group/card h-[100%] flex items-start justify-between flex-col">
@@ -47,7 +48,11 @@ const ProductCard: React.FC<{ product: ProductProps }> = ({ product }) => {
         {/* Hover Section */}
         <div className="absolute top-0 left-0 w-full h-full bg-[#3e3d3d82] bg-opacity-50 flex items-center justify-center flex-col text-white opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
           <div className=" flex items-center justify-center gap-3 flex-col">
-            <CartBtn title="Add to Cart" icons={<SiShopee />} />
+            <CartBtn
+              handleClick={() => addToCart(product)}
+              title="Add to Cart"
+              icons={<SiShopee />}
+            />
             <CartBtn
               handleClick={handleNavigate}
               title="Details"

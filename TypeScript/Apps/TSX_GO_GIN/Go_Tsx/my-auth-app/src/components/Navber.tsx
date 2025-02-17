@@ -1,19 +1,21 @@
 import { Link } from "react-router-dom";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { BiLogOut, BiUser, BiXCircle } from "react-icons/bi";
+import { BiLogOut, BiUser } from "react-icons/bi";
 import Logout from "../Pages/Log_Sign/Logout";
 import { navLinks } from "../data/NavData";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { BsBagX } from "react-icons/bs";
+import { useCart } from "../context/ProductContext";
 
 export const Navber = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCart, setIsCart] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useContext(AuthContext)!;
+  const { cartCount } = useCart();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -119,43 +121,33 @@ export const Navber = () => {
           )}
           <ButtonIcon icon={<IoSearch />} />
           <ButtonIcon icon={<IoMdHeartEmpty />} />
+
           <div ref={dropdownRef}>
             <ButtonIcon
               onClick={() => setIsCart(!isCart)}
               icon={<MdOutlineShoppingCart />}
             />
+            {cartCount > 0 && (
+              <span className="absolute -top-3  -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+                {cartCount}
+              </span>
+            )}
             {isCart && (
-              <div className=" absolute w-[417px] shadow-lg rounded-lg bg-[#fff] top-0 right-0 p-5 duration-200">
+              <div className=" absolute w-[417px] shadow-lg rounded-lg bg-[#fff] top-0 right-0 p-5 active:duration-500">
                 <div className="flex items-center justify-between">
                   <h1 className=" text-2xl capitalize">Shopping Cart</h1>
 
                   <ButtonIcon
+                    className=" text-slate-400"
                     icon={<BsBagX />}
                     onClick={() => setIsCart(!isCart)}
                   />
                 </div>
                 <hr className="text-slate-300 w-full my-5" />
-                <div className=" flex flex-col gap-2">
-                  <CartBugComponent />
-                  <CartBugComponent />
-                  <CartBugComponent />
-                  <CartBugComponent />
-                </div>
+
+                <Cart />
 
                 {/* footer of cart */}
-                <div className=" py-5 px-5">
-                  <div className=" flex flex-row items-center justify-between">
-                    <h1 className=" text-2xl capitalize">Subtotal</h1>
-                    <p className=" text-amber-400 capitalize text-xl">
-                      BDT: 210002
-                    </p>
-                  </div>
-                </div>
-                <div className=" border-t-[1px] border-gray-400 py-5 flex items-center justify-between ">
-                  <CartBtn title="cart" />
-                  <CartBtn title="Chackout" />
-                  <CartBtn title="Comparison" />
-                </div>
               </div>
             )}
           </div>
@@ -166,6 +158,7 @@ export const Navber = () => {
 };
 
 interface ButtonIconProps {
+  className?: string;
   icon: React.ReactNode;
   onClick?: () => void;
 }
@@ -174,7 +167,7 @@ const ButtonIcon: React.FC<ButtonIconProps> = (props) => {
     <>
       <button
         onClick={props.onClick}
-        className="flex items-center justify-center group/btn text-2xl gap-2 p-1.5 cursor-pointer focus:outline-none w-8 h-8 rounded-full duration-200 hover:text-4xl "
+        className={` ${props.className} flex items-center justify-center group/btn text-2xl gap-2 p-1.5 cursor-pointer focus:outline-none w-8 h-8 rounded-full duration-200 hover:text-4xl `}
       >
         <div className=" group-focus/btn:scale-50 duration-200">
           {props.icon}
@@ -184,26 +177,52 @@ const ButtonIcon: React.FC<ButtonIconProps> = (props) => {
   );
 };
 
-const CartBugComponent = () => {
+const Cart = () => {
+  const { cart } = useCart();
+
+  if (cart.length === 0) {
+    return <p className="text-center p-4">Your cart is empty.</p>;
+  }
+
+  // Calculate subtotal
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price! * item.quantity,
+    0
+  );
+
   return (
-    <>
-      <div className=" flex items-center justify-between  p-1 rounded-md  ">
-        <div>
+    <div className="">
+      {cart.map((item) => (
+        <div
+          key={item.id}
+          className="flex items-center bg-slate-50 cursor-pointer py-3 px-3 rounded-lg hover:bg-slate-100"
+        >
           <img
-            className=" w-30 rounded-md"
-            src="https://images.pexels.com/photos/812264/pexels-photo-812264.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
+            src={item.image_url}
+            alt={item.name}
+            className="w-16 h-16 object-cover rounded mr-4"
           />
+          <div>
+            <h2 className="text-lg">{item.name}</h2>
+            <p>
+              BDT: {item.price} x {item.quantity}
+            </p>
+          </div>
         </div>
-        <div className="flex items-start justify-between flex-col">
-          <h1 className=" text-xl">Asgaard sofa</h1>
-          <p className=" flex items-center justify-center gap-3">
-            1 X <span className="text-amber-400">BDT: 10020</span>
-          </p>
+      ))}
+
+      <div className="py-5 px-5">
+        <div className="flex flex-row items-center justify-between">
+          <h1 className="text-lg capitalize">Subtotal</h1>
+          <p className="text-amber-600 capitalize text-lg">BDT: {subtotal}</p>
         </div>
-        <ButtonIcon icon={<BiXCircle />} />
       </div>
-    </>
+      <div className="border-t-[1px] border-gray-400 py-5 flex items-center justify-between">
+        <CartBtn title="Cart" />
+        <CartBtn title="Checkout" />
+        <CartBtn title="Comparison" />
+      </div>
+    </div>
   );
 };
 
@@ -216,6 +235,16 @@ const CartBtn: React.FC<CartBtnProps> = ({ title }) => {
       <button className=" py-1.5 px-5 rounded-full border-[1px] border-slate-800 cursor-pointer capitalize">
         {title}
       </button>
+    </>
+  );
+};
+
+export const BadgeCounter: React.FC<{ count: string }> = ({ count }) => {
+  return (
+    <>
+      <span className=" -top-1 -right-1 text-white py-0.5 px-1  text-xs flex items-center justify-center bg-red-600 rounded-full absolute">
+        {count}
+      </span>
     </>
   );
 };
