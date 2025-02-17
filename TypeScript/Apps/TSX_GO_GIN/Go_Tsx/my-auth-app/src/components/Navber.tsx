@@ -57,7 +57,7 @@ export const Navber = () => {
             <li key={index}>
               <Link
                 to={item.hrefTo}
-                className="uppercase text-gray-600 font-normal hover:font-semibold hover:text-gray-950 duration-200 text-sm tracking-wider"
+                className="uppercase text-gray-600 font-normal hover:font-semibold hover:text-gray-950 text-sm tracking-wider focus:text-[#B88E2F] focus:scale-110 duration-200"
               >
                 {item.title}
               </Link>

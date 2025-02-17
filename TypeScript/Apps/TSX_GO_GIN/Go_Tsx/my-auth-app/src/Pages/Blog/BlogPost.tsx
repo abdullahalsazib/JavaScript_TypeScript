@@ -1,4 +1,3 @@
-import React from "react";
 import { BiCalendar, BiUser } from "react-icons/bi";
 import { PiNeedle } from "react-icons/pi";
 
@@ -38,7 +37,10 @@ const BlogPost = () => {
           libero. Pellentesque elit ullamcorper dignissim cras tincidunt.
           Pharetra et ultrices neque ornare aenean euismod elementum.
         </p>
-        <a className=" py-2 hover:px-5 duration-200 border-b-2 border-b-orange-800" href="#">
+        <a
+          className=" py-2 hover:px-5 duration-200 border-b-2 border-b-orange-800"
+          href="#"
+        >
           Read more
         </a>
       </div>

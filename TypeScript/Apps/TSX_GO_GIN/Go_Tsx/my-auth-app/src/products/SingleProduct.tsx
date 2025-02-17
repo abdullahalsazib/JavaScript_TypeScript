@@ -7,7 +7,7 @@ import { BiPlus, BiRightArrow, BiSolidStar, BiStar } from "react-icons/bi";
 import { Footer } from "../Pages/Footer";
 
 const SingleProduct = () => {
-  const { addToCart } = useCart();
+  const { addToCart, updateQuantity } = useCart();
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<ProductProps | null>(null);
   const [cartItem, setCartItem] = useState(1); // Default quantity is 1
@@ -21,9 +21,22 @@ const SingleProduct = () => {
   }, [id]);
 
   const handleAddToCart = () => {
-    if (product) {
-      addToCart(product, cartItem); // Add to cart with quantity
+    if (!product) return;
+
+    if (cartItem <= 0) {
+      alert("Quantity must be at least 1!");
+      return;
     }
+
+    if (cartItem > product.stock) {
+      alert(`Only ${product.stock} items available in stock!`);
+      return;
+    }
+
+    // console.log("Added to cart:", product, "Quantity:", cartItem);
+    addToCart(product);
+    // updateQuantity(product, cartItem)
+    updateQuantity(product.id!, cartItem);
   };
 
   if (!product) {
@@ -62,7 +75,7 @@ const SingleProduct = () => {
             />
           </div>
           <img
-            className="w-[80%] bg-slate-100 shadow-2xl rounded-lg ring-1 ring-blue-500 opacity-90 p-2"
+            className="w-[80%] bg-slate-100 shadow-2xl rounded-lg ring-1 ring-blue-200 opacity-90 "
             src={product.image_url}
             alt=""
           />
@@ -71,7 +84,9 @@ const SingleProduct = () => {
         {/* Product Details */}
         <div className="w-1/2 flex items-start justify-between gap-20 flex-col">
           <div className="space-y-1">
-            <h1 className="text-[42px] font-bold capitalize">{product.name}</h1>
+            <h1 className="text-[42px] font-bold capitalize w-full flex items-center justify-between">
+              {product.name} <p className=" text-sm text-blue-500">stock: {product.stock}</p>
+            </h1>
             <p className="text-slate-600 text-2xl">৳. {product.price}tk</p>
 
             {/* Rating */}
@@ -109,9 +124,13 @@ const SingleProduct = () => {
                   value={cartItem}
                   className="w-20 text-center border-none outline-none"
                   onChange={(e) => {
-                    // Ensure the value is not negative
                     const value = Number(e.target.value);
-                    if (value >= 0) setCartItem(value);
+                    if (!isNaN(value) && value > 0 && value <= product.stock) {
+                      setCartItem(value);
+                    } else if (value > product.stock) {
+                      alert(`Only ${product.stock} items available in stock!`);
+                      setCartItem(product.stock);
+                    }
                   }}
                 />
                 <button
@@ -152,7 +171,6 @@ const CommonBtnCart: React.FC<{
     </button>
   );
 };
-
 
 export const SeeMoreBtn: React.FC<{
   title: string;

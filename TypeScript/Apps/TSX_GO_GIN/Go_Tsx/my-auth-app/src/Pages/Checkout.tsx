@@ -42,8 +42,8 @@ function Checkout() {
             <div className=" flex items-center justify-between py-5">
               {cart.length > 0 && (
                 <div className=" w-full h-full">
-                  {cart.map((item) => (
-                    <div className="flex justify-between capitalize text-slate-500 pb-2 text-sm ">
+                  {cart.map((item, index) => (
+                    <div key={index} className="flex justify-between capitalize text-slate-500 pb-2 text-sm ">
                       <span>
                         {item.name}{" "}
                         <span className=" lowercase text-xs">x</span>{" "}
